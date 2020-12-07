@@ -21,6 +21,9 @@ public class Controller {
         this.hotelView = hotelView;
         this.hotel = hotel;
         this.queue = queue;
+
+        valves.add(new BookMessageValve());
+        valves.add(new CheckInMessageValve());
     }
 
     public void mainLoop() {
@@ -38,6 +41,30 @@ public class Controller {
                     break;
                 }
             }
+        }
+    }
+
+    private class BookMessageValve implements Valve {
+        @Override
+        public ValveResponse execute(Message message) {
+            if (message.getClass() != BookMessage.class) {
+                return ValveResponse.MISS;
+            }
+            // Otherwise message is of BookMessage type
+            // actions in Model and View
+            return ValveResponse.EXECUTED;
+        }
+    }
+
+    private class CheckInMessageValve implements Valve {
+        @Override
+        public ValveResponse execute(Message message) {
+            if (message.getClass() != CheckInMessage.class) {
+                return ValveResponse.MISS;
+            }
+            // Otherwise message is of CheckInMessage type
+            // actions in Model and View
+            return ValveResponse.EXECUTED;
         }
     }
 }

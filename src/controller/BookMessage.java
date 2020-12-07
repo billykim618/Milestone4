@@ -1,4 +1,4 @@
 package controller;
 
-public class BookMessage {
+public class BookMessage implements Message{
 }

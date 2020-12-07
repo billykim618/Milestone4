@@ -23,19 +23,19 @@ public class HotelTest {
         view.dispose();
         queue.clear();
         JFrame frame = new JFrame();
-
-        JButton helloButton = new JButton("Hello");
-        JButton goodbyeButton = new JButton("Goodbye");
-
-        final int FIELD_WIDTH = 20;
-        JTextField textField = new JTextField(FIELD_WIDTH);
-        textField.setText("Click a button");
+//
+//        JButton helloButton = new JButton("Hello");
+//        JButton goodbyeButton = new JButton("Goodbye");
+//
+//        final int FIELD_WIDTH = 20;
+//        JTextField textField = new JTextField(FIELD_WIDTH);
+//        textField.setText("Click a button");
 
         frame.setLayout(new FlowLayout());
-
-        frame.add(helloButton);
-        frame.add(goodbyeButton);
-        frame.add(textField);
+//
+//        frame.add(helloButton);
+//        frame.add(goodbyeButton);
+//        frame.add(textField);
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();

@@ -18,7 +18,7 @@ public class HotelTest {
         view = HotelView.init(queue);
         hotel = new Hotel();
         Controller controller = new Controller(view, hotel, queue);
-//
+
         controller.mainLoop();
         view.dispose();
         queue.clear();

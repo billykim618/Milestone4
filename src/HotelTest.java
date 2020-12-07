@@ -1,3 +1,5 @@
+import controller.Controller;
+import controller.Message;
 import model.Hotel;
 import view.HotelView;
 
@@ -8,18 +10,18 @@ import java.util.concurrent.Flow;
 import java.util.concurrent.LinkedBlockingQueue;
 
 public class HotelTest {
-//    private static BlockingQueue<Message> queue = new LinkedBlockingQueue<>();
-//    private static HotelView view;
-//    private static Hotel hotel;
+    private static BlockingQueue<Message> queue = new LinkedBlockingQueue<>();
+    private static HotelView view;
+    private static Hotel hotel;
 //
     public static void main(String[] args) {
-//        view = HotelView.init(queue);
-//        hotel = new Hotel();
-//        ModuleLayer.Controller controller = new ModuleLayer.Controller(view, hotel, queue);
+        view = HotelView.init(queue);
+        hotel = new Hotel();
+        Controller controller = new Controller(view, hotel, queue);
 //
-//        controller.mainLoop();
-//        view.dispose();
-//        queue.clear();
+        controller.mainLoop();
+        view.dispose();
+        queue.clear();
         JFrame frame = new JFrame();
 
         JButton helloButton = new JButton("Hello");

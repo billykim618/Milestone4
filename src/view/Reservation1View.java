@@ -12,17 +12,18 @@ import java.awt.*;
 import java.util.concurrent.BlockingQueue;
 
 public class Reservation1View extends JFrame {
-    Reservation1Model model;
+    Reservation1Model res1;
     JFrame res1View;
     BlockingQueue<Message> queue;
 
-    public Reservation1View(BlockingQueue<Message> queue) {
+    public Reservation1View(BlockingQueue<Message> queue, Reservation1Model res1) {
+        this.res1 = res1;
         this.queue = queue;
         res1View = new JFrame();
         this.setTitle("Reservation 1");
 
-        JLabel daysLabel = new JLabel();
-        add(daysLabel);
+//        JLabel daysLabel = new JLabel(String.valueOf(res1.getDays()));
+//        add(daysLabel);
 
         // 4 buttons
         JButton checkIn  = new JButton("Check In");

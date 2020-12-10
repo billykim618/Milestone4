@@ -4,17 +4,19 @@ import controller.CancelMessage;
 import controller.CheckInMessage;
 import controller.CheckOutMessage;
 import controller.Message;
+import model.Reservation2Model;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.concurrent.BlockingQueue;
 
 public class Reservation2View extends JFrame{
-//    Model model;
+    Reservation2Model res2;
     BlockingQueue<Message> queue;
     JFrame res2View;
 
-    public Reservation2View(BlockingQueue<Message> queue) {
+    public Reservation2View(BlockingQueue<Message> queue, Reservation2Model res2) {
+        this.res2 = res2;
         this.queue = queue;
         res2View = new JFrame();
         this.setTitle("Reservation 2");

@@ -28,7 +28,9 @@ public class Controller {
 
     private List<Valve> valves = new LinkedList<Valve>();
 
-    public Controller(HotelView hotelView, HotelModel hotelModel, BlockingQueue<Message> queue) {
+    public Controller(HotelView hotelView, HotelModel hotelModel, BlockingQueue<Message> queue, Reservation1Model res1, Reservation2Model res2) {
+        this.res1 = res1;
+        this.res2 = res2;
         this.hotelView = hotelView;
         this.hotelModel = hotelModel;
         this.queue = queue;
@@ -67,7 +69,7 @@ public class Controller {
             if (message.getClass() != BookMessage.class) {
                 return ValveResponse.MISS;
             }
-            bookView = new BookView(queue);
+            bookView = new BookView(queue, res1, res2);
             // Otherwise message is of BookMessage type
             // actions in Model and View
             return ValveResponse.EXECUTED;
@@ -98,6 +100,19 @@ public class Controller {
         }
     }
 
+    private class SubmitReservation2MessageValve implements Valve {
+        @Override
+        public ValveResponse execute(Message message) {
+            if (message.getClass() != SubmitReservation2Message.class) {
+                return ValveResponse.MISS;
+            }
+            if (!((SubmitReservation2Message) message).isReserved()) {
+                res1 = new Reservation1Model(((SubmitReservation2Message) message).days, ((SubmitReservation1Message) message).beds);
+            }
+            return ValveResponse.EXECUTED;
+        }
+    }
+
     private class SubmitMessageValve implements Valve {
         @Override
         public ValveResponse execute(Message message) {
@@ -116,7 +131,7 @@ public class Controller {
             if (message.getClass() != Reservation1Message.class) {
                 return ValveResponse.MISS;
             }
-            res1View = new Reservation1View(queue);
+            res1View = new Reservation1View(queue, res1);
             return ValveResponse.EXECUTED;
         }
     }
@@ -127,7 +142,7 @@ public class Controller {
             if (message.getClass() != Reservation2Message.class) {
                 return ValveResponse.MISS;
             }
-            res2View = new Reservation2View(queue);
+            res2View = new Reservation2View(queue, res2);
             return ValveResponse.EXECUTED;
         }
     }

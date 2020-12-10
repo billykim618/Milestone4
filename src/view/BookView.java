@@ -2,6 +2,7 @@ package view;
 
 import controller.Message;
 import controller.SubmitReservation1Message;
+import controller.SubmitReservation2Message;
 import model.BookModel;
 import model.Reservation1Model;
 import model.Reservation2Model;
@@ -11,12 +12,14 @@ import java.awt.*;
 import java.util.concurrent.BlockingQueue;
 
 public class BookView extends JFrame {
-    Reservation1Model model1;
-    Reservation2Model model2;
+    Reservation1Model res1;
+    Reservation2Model res2;
     JFrame bookFrame;
     BlockingQueue<Message> queue;
 
-    public BookView(BlockingQueue<Message> queue) {// int n1, int n2, BookModel model
+    public BookView(BlockingQueue<Message> queue, Reservation1Model res1, Reservation2Model res2) {// int n1, int n2, BookModel model
+        this.res1 = res1;
+        this.res2 = res2;
         this.queue = queue;
         bookFrame = new JFrame();
         this.setTitle("Booking");
@@ -55,11 +58,17 @@ public class BookView extends JFrame {
                 int days, beds;
                 days = Integer.parseInt(daysField.getText());
                 beds = Integer.parseInt(bedsField.getText());
-//                if (daysField.getText().length() > 0) {
-//                    days = Integer.parseInt(daysField.getText());
-//                if (bedsField.getText().length() > 0)
-//                    beds = Integer.parseInt(bedsField.getText());
-                this.queue.put(new SubmitReservation1Message(days, beds)); // add Book message to queue
+//                if (!res1.isReserved()) {
+////                if (daysField.getText().length() > 0) {
+////                    days = Integer.parseInt(daysField.getText());
+////                if (bedsField.getText().length() > 0)
+////                    beds = Integer.parseInt(bedsField.getText());
+//                    this.queue.put(new SubmitReservation1Message(days, beds));
+//                }
+//                else {
+//                    this.queue.put(new SubmitReservation2Message(days, beds));
+//                }
+                this.queue.put(new SubmitReservation1Message(days, beds));
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

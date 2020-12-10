@@ -3,7 +3,6 @@ package view;
 import controller.BookMessage;
 import controller.Message;
 import controller.ReservationsMessage;
-import model.Hotel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -29,10 +28,10 @@ public class HotelView extends JFrame {
 
         this.setTitle("Hotel");
 
-        JButton book = new JButton("BOOK");
-        JButton reservations = new JButton("RESERVATIONS");
+        JButton bookButton = new JButton("BOOK");
+        JButton reservationsButton = new JButton("RESERVATIONS");
 
-        book.addActionListener(event -> {
+        bookButton.addActionListener(event -> {
             try {
                 this.queue.put(new BookMessage()); // add Book message to queue
             } catch (InterruptedException e) {
@@ -40,7 +39,7 @@ public class HotelView extends JFrame {
             }
         });
 
-        reservations.addActionListener(event -> {
+        reservationsButton.addActionListener(event -> {
             try {
                 this.queue.put(new ReservationsMessage()); // add Reservation message to queue
             } catch (InterruptedException e) {
@@ -48,8 +47,8 @@ public class HotelView extends JFrame {
             }
         });
 
-        add(book);
-        add(reservations);
+        add(bookButton);
+        add(reservationsButton);
         hotelFrame.pack();
         setSize(500,500);
         setLayout(new FlowLayout());

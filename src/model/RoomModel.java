@@ -2,7 +2,7 @@ package model;
 
 import javax.swing.*;
 
-public class Room extends JFrame {
+public class RoomModel extends JFrame {
      private int days;
      private int numBeds;
      private String bedSize;

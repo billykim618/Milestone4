@@ -1,6 +1,6 @@
 package controller;
 
-import model.Hotel;
+import model.HotelModel;
 import view.HotelView;
 import view.RoomView;
 
@@ -13,13 +13,13 @@ public class Controller {
 
     private HotelView hotelView;
     private RoomView roomView;
-    private Hotel hotel;
+    private HotelModel hotelModel;
 
     private List<Valve> valves = new LinkedList<Valve>();
 
-    public Controller(HotelView hotelView, Hotel hotel, BlockingQueue<Message> queue) {
+    public Controller(HotelView hotelView, HotelModel hotelModel, BlockingQueue<Message> queue) {
         this.hotelView = hotelView;
-        this.hotel = hotel;
+        this.hotelModel = hotelModel;
         this.queue = queue;
 
         valves.add(new BookMessageValve());
@@ -28,8 +28,8 @@ public class Controller {
 
     public void mainLoop() {
         ValveResponse response = ValveResponse.EXECUTED;
-        Message message = null;
         while (response != ValveResponse.FINISH) {
+            Message message = null;
             try {
                 message = queue.take(); // Take next message from queue when ready/available
             } catch (InterruptedException e) {
@@ -50,6 +50,7 @@ public class Controller {
             if (message.getClass() != BookMessage.class) {
                 return ValveResponse.MISS;
             }
+
             // Otherwise message is of BookMessage type
             // actions in Model and View
             return ValveResponse.EXECUTED;
@@ -65,6 +66,14 @@ public class Controller {
             // Otherwise message is of CheckInMessage type
             // actions in Model and View
             return ValveResponse.EXECUTED;
+        }
+    }
+
+    private class CheckOutMessageValve implements Valve {
+
+        @Override
+        public ValveResponse execute(Message message) {
+            return null;
         }
     }
 }

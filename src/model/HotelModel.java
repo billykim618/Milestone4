@@ -2,7 +2,7 @@ package model;
 
 import javax.swing.*;
 
-public class Hotel extends JFrame {
+public class HotelModel extends JFrame {
 
 
 }

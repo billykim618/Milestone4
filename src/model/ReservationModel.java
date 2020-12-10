@@ -3,8 +3,8 @@ package model;
 import javax.swing.*;
 import java.util.ArrayList;
 
-public class Reservation extends JFrame {
-    ArrayList<Reservation> reservations = new ArrayList<>();
+public class ReservationModel extends JFrame {
+    ArrayList<ReservationModel> reservationModels = new ArrayList<>();
     private int numReservations;
     private int days;
     private int numBeds;
@@ -13,18 +13,18 @@ public class Reservation extends JFrame {
     private boolean isCheckedOut;
 
 
-    public Reservation(Room room) {
-        this.days = room.getDays();
-        this.numBeds = room.getNumBeds();
-        this.bedSize = room.getBedSize();
+    public ReservationModel(RoomModel roomModel) {
+        this.days = roomModel.getDays();
+        this.numBeds = roomModel.getNumBeds();
+        this.bedSize = roomModel.getBedSize();
         this.isCheckedIn = false;
         this.isCheckedOut = false;
-        reservations.add(this);
+        reservationModels.add(this);
         numReservations++;
     }
 
     public void cancel() {
-        reservations.remove(this);
+        reservationModels.remove(this);
         numReservations--;
     }
 

@@ -26,7 +26,7 @@ public class HotelView extends JFrame {
         // or you can make View a subclass of JFrame by extending it
         hotelFrame = new JFrame();
 
-        this.setTitle("Hotel");
+        this.setTitle("Hotel Reservation System");
 
         JButton bookButton = new JButton("BOOK");
         JButton reservationsButton = new JButton("RESERVATIONS");

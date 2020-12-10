@@ -1,4 +1,4 @@
 package controller;
 
-public class ReservationsMessage implements Message{
+public class ReservationsMessage implements Message {
 }

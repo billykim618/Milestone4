@@ -9,25 +9,29 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.concurrent.BlockingQueue;
 
-public class ReservationView extends JFrame {
+public class ReservationsView extends JFrame {
     ReservationModel model;
     BlockingQueue<Message> queue;
+    JFrame reservationsFrame;
 
-    public ReservationView() {
+    public ReservationsView() {
+        reservationsFrame = new JFrame();
+        this.setTitle("Your Reservations");
+
         // 3 buttons for this view
-        JButton Reservation_1  = new JButton("Reservation 1");
-        add(Reservation_1);
-        JButton Reservation_2 = new JButton ("Reservation 2");
-        add(Reservation_2);
-        JButton goBack = new JButton("Go Back");
-        add(goBack);
+        JButton reservation_1Button  = new JButton("Reservation 1");
+        add(reservation_1Button);
+        JButton reservation_2Button = new JButton ("Reservation 2");
+        add(reservation_2Button);
+        JButton goBackButton = new JButton("Go Back");
+        add(goBackButton);
         //basic set up
         setVisible(true);
         setSize(500, 500);
         setLayout(new FlowLayout());
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        Reservation_1.addActionListener(event -> {
+        reservation_1Button.addActionListener(event -> {
             try {
                 this.queue.put(new Reservation1Message()); // add Book message to queue
             } catch (InterruptedException e) {
@@ -35,12 +39,16 @@ public class ReservationView extends JFrame {
             }
         });
 
-        Reservation_2.addActionListener(event -> {
+        reservation_2Button.addActionListener(event -> {
             try {
                 this.queue.put(new Reservation2Message()); // add Reservation message to queue
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
+        });
+
+        goBackButton.addActionListener(event -> {
+            this.dispose();
         });
     }
 }

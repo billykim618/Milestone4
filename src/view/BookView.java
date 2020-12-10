@@ -1,6 +1,7 @@
 package view;
 
 import controller.BookMessage;
+import controller.CloseMessage;
 import controller.Message;
 import controller.SubmitMessage;
 import model.BookModel;
@@ -14,19 +15,19 @@ public class BookView extends JFrame {
     JFrame bookFrame;
     BlockingQueue<Message> queue;
 
-    public BookView(int n1, int n2, BookModel model) {
+    public BookView() {// int n1, int n2, BookModel model
         bookFrame = new JFrame();
         this.setTitle("Booking");
 
         // 2 label and text for this days and beds
         add(new JLabel("Days: "));
         JTextField daysField = new JTextField(10);
-        daysField.setText(n1 + "");
+        daysField.setText("");
         add(daysField);
 
         add(new JLabel("Beds: "));
         JTextField bedsField = new JTextField(10);
-        bedsField.setText(n2 + "");
+        bedsField.setText("");
         add(bedsField);
         //2 buttons
         JButton submit = new JButton("Submit");
@@ -56,12 +57,13 @@ public class BookView extends JFrame {
         });
 
         back.addActionListener(event -> {
-            try {
-                this.queue.put(new BookMessage()); // add Reservation message to queue
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        });
+            this.dispose();
 
+//            try {
+//                this.queue.put(new CloseMessage()); // add Reservation message to queue
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
+        });
     }
 }

@@ -14,7 +14,8 @@ public class ReservationsView extends JFrame {
     BlockingQueue<Message> queue;
     JFrame reservationsFrame;
 
-    public ReservationsView() {
+    public ReservationsView(BlockingQueue<Message> queue) {
+        this.queue = queue;
         reservationsFrame = new JFrame();
         this.setTitle("Your Reservations");
 

@@ -1,10 +1,9 @@
 package controller;
 
 import model.HotelModel;
-import view.BookView;
-import view.HotelView;
-import view.ReservationsView;
-import view.RoomView;
+import model.Reservation1Model;
+import model.Reservation2Model;
+import view.*;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -18,6 +17,13 @@ public class Controller {
     private RoomView roomView;
     private ReservationsView reservationsView;
     private HotelModel hotelModel;
+    private Reservation1View res1View;
+    private Reservation2View res2View;
+    private Reservation1Model res1;
+    private Reservation2Model res2;
+    private CheckInView checkInView;
+    private CheckOutView checkOutView;
+    private CancelView cancelView;
 
 
     private List<Valve> valves = new LinkedList<Valve>();
@@ -29,9 +35,12 @@ public class Controller {
 
         valves.add(new BookMessageValve());
         valves.add(new ReservationsMessageValve());
-//        valves.add();
+        valves.add(new SubmitReservation1MessageValve());
+        valves.add(new Reservation1MessageValve());
+        valves.add(new Reservation2MessageValve());
         valves.add(new CheckInMessageValve());
-//        valves.add(new CloseMessageValve());
+        valves.add(new CheckOutMessageValve());
+        valves.add(new CancelMessageValve());
     }
 
     public void mainLoop() {
@@ -52,24 +61,13 @@ public class Controller {
         }
     }
 
-//    private class CloseMessageValve implements Valve {
-//        @Override
-//        public ValveResponse execute(Message message) {
-//            if (message.getClass() != CloseMessage.class) {
-//                return ValveResponse.MISS;
-//            }
-//            bookView.dispose();
-//            return ValveResponse.EXECUTED;
-//        }
-//    }
-
     private class BookMessageValve implements Valve {
         @Override
         public ValveResponse execute(Message message) {
             if (message.getClass() != BookMessage.class) {
                 return ValveResponse.MISS;
             }
-            bookView = new BookView();
+            bookView = new BookView(queue);
             // Otherwise message is of BookMessage type
             // actions in Model and View
             return ValveResponse.EXECUTED;
@@ -82,18 +80,54 @@ public class Controller {
             if (message.getClass() != ReservationsMessage.class) {
                 return ValveResponse.MISS;
             }
-            reservationsView = new ReservationsView();
+            reservationsView = new ReservationsView(queue);
             return ValveResponse.EXECUTED;
         }
     }
 
-    private class SubmitValve implements Valve {
+    private class SubmitReservation1MessageValve implements Valve {
         @Override
         public ValveResponse execute(Message message) {
-            if (message.getClass() != SubmitMessage.class) {
+            if (message.getClass() != SubmitReservation1Message.class) {
+                return ValveResponse.MISS;
+            }
+            if (!((SubmitReservation1Message) message).isReserved()) {
+                res1 = new Reservation1Model(((SubmitReservation1Message) message).days, ((SubmitReservation1Message) message).beds);
+            }
+            return ValveResponse.EXECUTED;
+        }
+    }
+
+    private class SubmitMessageValve implements Valve {
+        @Override
+        public ValveResponse execute(Message message) {
+            if (message.getClass() != SubmitReservation1Message.class) {
                 return ValveResponse.MISS;
             }
 
+            return ValveResponse.EXECUTED;
+        }
+    }
+
+    private class Reservation1MessageValve implements Valve {
+        @Override
+        public ValveResponse execute(Message message) {
+
+            if (message.getClass() != Reservation1Message.class) {
+                return ValveResponse.MISS;
+            }
+            res1View = new Reservation1View(queue);
+            return ValveResponse.EXECUTED;
+        }
+    }
+
+    private class Reservation2MessageValve implements Valve {
+        @Override
+        public ValveResponse execute(Message message) {
+            if (message.getClass() != Reservation2Message.class) {
+                return ValveResponse.MISS;
+            }
+            res2View = new Reservation2View(queue);
             return ValveResponse.EXECUTED;
         }
     }
@@ -104,7 +138,7 @@ public class Controller {
             if (message.getClass() != CheckInMessage.class) {
                 return ValveResponse.MISS;
             }
-
+            checkInView = new CheckInView(queue);
             // Otherwise message is of CheckInMessage type
             // actions in Model and View
             return ValveResponse.EXECUTED;
@@ -112,10 +146,25 @@ public class Controller {
     }
 
     private class CheckOutMessageValve implements Valve {
-
         @Override
         public ValveResponse execute(Message message) {
-            return null;
+            if (message.getClass() != CheckOutMessage.class) {
+                return ValveResponse.MISS;
+            }
+            checkOutView = new CheckOutView(queue);
+            return ValveResponse.EXECUTED;
         }
     }
+
+    private class CancelMessageValve implements Valve {
+        @Override
+        public ValveResponse execute(Message message) {
+            if (message.getClass() != CancelMessage.class) {
+                return ValveResponse.MISS;
+            }
+            cancelView = new CancelView(queue);
+            return ValveResponse.EXECUTED;
+        }
+    }
+
 }

@@ -11,6 +11,7 @@ public class ReservationModel extends JFrame {
     private String bedSize;
     private boolean isCheckedIn;
     private boolean isCheckedOut;
+    private boolean isReserved = false;
 
 
     public ReservationModel(RoomModel roomModel) {

@@ -4,23 +4,35 @@ import controller.CancelMessage;
 import controller.CheckInMessage;
 import controller.CheckOutMessage;
 import controller.Message;
+import model.Reservation1Model;
+import model.ReservationModel;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.concurrent.BlockingQueue;
 
-public class Reservation2 extends JFrame{
-//    Model model;
+public class Reservation1View extends JFrame {
+    Reservation1Model model;
+    JFrame res1View;
     BlockingQueue<Message> queue;
 
-    public Reservation2() {
-        // 3 buttons
-        JButton checkIn = new JButton("Check In");
+    public Reservation1View(BlockingQueue<Message> queue) {
+        this.queue = queue;
+        res1View = new JFrame();
+        this.setTitle("Reservation 1");
+
+        JLabel daysLabel = new JLabel();
+        add(daysLabel);
+
+        // 4 buttons
+        JButton checkIn  = new JButton("Check In");
         add(checkIn);
-        JButton checkOut = new JButton("Check Out");
+        JButton checkOut = new JButton ("Check Out");
         add(checkOut);
-        JButton cancel = new JButton("Cancel");
+        JButton cancel = new JButton ("Cancel");
         add(cancel);
+        JButton goBack = new JButton("Go Back");
+        add(goBack);
         //basic setup
         setVisible(true);
         setSize(500, 500);
@@ -36,10 +48,11 @@ public class Reservation2 extends JFrame{
             }
         });
 
-        checkIn.addActionListener(event -> {
+        checkOut.addActionListener(event -> {
             try {
                 this.queue.put(new CheckOutMessage()); // add Reservation message to queue
-            } catch (InterruptedException e) {
+            }
+            catch (InterruptedException e) {
                 e.printStackTrace();
             }
         });
@@ -47,10 +60,19 @@ public class Reservation2 extends JFrame{
         cancel.addActionListener(event -> {
             try {
                 this.queue.put(new CancelMessage()); // add Reservation message to queue
-            } catch (InterruptedException e) {
+            }
+            catch (InterruptedException e) {
                 e.printStackTrace();
             }
+            this.dispose();
         });
 
+        goBack.addActionListener(event -> {
+            this.dispose();
+        });
+
+    }
+
+    public void setBeds(int beds) {
     }
 }

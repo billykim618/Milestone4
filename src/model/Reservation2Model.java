@@ -8,13 +8,13 @@ public class Reservation2Model {
     private boolean canceled;
     private boolean reserved;
 
-    public Reservation2Model(int days, int beds) {
-        this.days = days;
-        this.beds = beds;
+    public Reservation2Model() {
+        this.days = 0;
+        this.beds = 0;
         this.checkedIn = false;
         this.checkedOut = false;
         this.canceled = false;
-        this.reserved = true;
+        this.reserved = false;
     }
 
     public void setDays(int days) {
@@ -34,6 +34,8 @@ public class Reservation2Model {
     public void checkOut() { if (checkedIn) this.checkedOut = true; }
 
     public void cancel() { this.reserved = false; }
+
+    public void setReserved(boolean reserved) { this.reserved = reserved; }
 
     public boolean isReserved() { return this.reserved; }
 }

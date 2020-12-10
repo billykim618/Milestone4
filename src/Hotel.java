@@ -18,6 +18,9 @@ public class Hotel {
     public static void main(String[] args) {
         view = HotelView.init(queue);
         hotelModel = new HotelModel();
+        res1 = new Reservation1Model();
+        res2 = new Reservation2Model();
+
         Controller controller = new Controller(view, hotelModel, queue, res1, res2);
 
         controller.mainLoop();

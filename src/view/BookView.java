@@ -58,17 +58,40 @@ public class BookView extends JFrame {
                 int days, beds;
                 days = Integer.parseInt(daysField.getText());
                 beds = Integer.parseInt(bedsField.getText());
-//                if (!res1.isReserved()) {
-////                if (daysField.getText().length() > 0) {
-////                    days = Integer.parseInt(daysField.getText());
-////                if (bedsField.getText().length() > 0)
-////                    beds = Integer.parseInt(bedsField.getText());
-//                    this.queue.put(new SubmitReservation1Message(days, beds));
-//                }
-//                else {
-//                    this.queue.put(new SubmitReservation2Message(days, beds));
-//                }
-                this.queue.put(new SubmitReservation1Message(days, beds));
+                if (!res1.isReserved()) {
+                    res1.setReserved(true);
+                    res1.setDays(days);
+                    res1.setBeds(beds);
+//                if (daysField.getText().length() > 0) {
+//                    days = Integer.parseInt(daysField.getText());
+//                if (bedsField.getText().length() > 0)
+//                    beds = Integer.parseInt(bedsField.getText());
+                    this.queue.put(new SubmitReservation1Message(days, beds));
+                }
+                else if (!res2.isReserved()){
+                    this.queue.put(new SubmitReservation2Message(days, beds));
+                    res2.setReserved(true);
+                    res2.setDays(days);
+                    res2.setBeds(beds);
+                }
+                else {
+                    JFrame error = new JFrame();
+                    error.setTitle("ERROR");
+                    JLabel label = new JLabel("NO MORE RESERVATIONS AVAILABLE");
+                    error.add(label);
+                    JButton okButton = new JButton("OK");
+                    error.add(okButton);
+
+                    error.setVisible(true);
+                    error.setSize(500,200);
+                    error.setLayout(new FlowLayout());
+                    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+                    okButton.addActionListener(event1 -> {
+                        error.dispose();
+                    });
+                }
+//                this.queue.put(new SubmitReservation1Message(days, beds));
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

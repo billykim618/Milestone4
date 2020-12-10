@@ -94,7 +94,7 @@ public class Controller {
                 return ValveResponse.MISS;
             }
             if (!((SubmitReservation1Message) message).isReserved()) {
-                res1 = new Reservation1Model(((SubmitReservation1Message) message).days, ((SubmitReservation1Message) message).beds);
+                res1 = new Reservation1Model();
             }
             return ValveResponse.EXECUTED;
         }
@@ -107,7 +107,7 @@ public class Controller {
                 return ValveResponse.MISS;
             }
             if (!((SubmitReservation2Message) message).isReserved()) {
-                res1 = new Reservation1Model(((SubmitReservation2Message) message).days, ((SubmitReservation1Message) message).beds);
+                res1 = new Reservation1Model();
             }
             return ValveResponse.EXECUTED;
         }

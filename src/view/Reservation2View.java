@@ -21,6 +21,11 @@ public class Reservation2View extends JFrame{
         res2View = new JFrame();
         this.setTitle("Reservation 2");
 
+        JLabel daysLabel = new JLabel(String.valueOf(res2.getDays()) + " days");
+        add(daysLabel);
+        JLabel bedsLabel = new JLabel(String.valueOf(res2.getBeds() + " beds"));
+        add(bedsLabel);
+
         // 4 buttons
         JButton checkIn = new JButton("Check In");
         add(checkIn);
